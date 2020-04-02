@@ -2,8 +2,6 @@ name: UnityTestRunnerExampleSlack
 
 on:
   push:
-    branches:
-    - master
 
 jobs:
   editorTestJob:
@@ -16,11 +14,16 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - run: mkdir -p path/to/artifact
-    - run: openssl aes-256-cbc -d -in Unity_v2018.x.ulf-cipher -k ${CYPHER_KEY} >> /Unity_v2018.x.ulf
-      env:
-        CYPHER_KEY: ${{ secrets.cypherkey }}
-    - run: /opt/Unity/Editor/Unity -manualLicenseFile /Unity_v2018.x.ulf -batchmode -nographics -quit || exit 0
-    - run: /opt/Unity/Editor/Unity -batchmode -nographics -silent-crashes -logFile -projectPath . -runEditorTests -editorTestsResultFile path/to/artifact/results.xml || exit 0
+
+    #- run: openssl aes-256-cbc -d -in Unity_v2018.x.ulf-cipher -k ${CYPHER_KEY} >> /Unity_v2018.x.ulf
+      #env:
+        #CYPHER_KEY: ${{ secrets.cypherkey }}
+    #- run: /opt/Unity/Editor/Unity -manualLicenseFile /Unity_v2018.x.ulf -batchmode -nographics -quit || exit 0
+    #- run: /opt/Unity/Editor/Unity -batchmode -nographics -silent-crashes -logFile -projectPath . -runEditorTests -editorTestsResultFile path/to/artifact/results.xml || exit 0
+
+    - run: |  # fake result
+        echo aaa > path/to/artifact/results.xml
+        
     - uses: actions/upload-artifact@master
       with:
         name: test_results
@@ -34,16 +37,14 @@ jobs:
       with:
         name: test_results
         path: artifact
-    - run: git clone https://github.com/pCYSl5EDgo/NUnitXmlReporter.git
-    - uses: actions/setup-dotnet@v1.0.2
-      with:
-        dotnet-version: '3.0.100'
+    
+    
     - name: report result to slack
       run: |
-        cd NUnitXmlReporter
-        dotnet run ../artifact/results.xml ../slackJson --slack-block  $GITHUB_REPOSITORY $GITHUB_SHA || INPUT_RESULT=$?
-        cd ..
-        curl -X POST -H 'ContentX-type:application/json' --data "$(cat slackJson)" $SLACK
-        exit $INPUT_RESULT
-      env:
-        SLACK: ${{ secrets.slackhook }}
+        echo ls
+        ls       
+        cat artifact/results.xml
+
+        # exit $INPUT_RESULT
+
+        
