@@ -15,9 +15,11 @@ jobs:
     - uses: actions/checkout@master
     - run: mkdir -p path/to/artifact
 
-    - run: openssl aes-256-cbc -d -in Unity_v2019.x.ulf-cipher -k ${CYPHER_KEY} >> /Unity_v2019.x.ulf
-      env:
-        CYPHER_KEY: ${{ secrets.cypherkey }}
+    #- run: openssl aes-256-cbc -d -in Unity_v2019.x.ulf-cipher -k ${CYPHER_KEY} >> /Unity_v2019.x.ulf
+      #env:
+        #CYPHER_KEY: ${{ secrets.cypherkey }}
+    - run: |
+        echo ${{ secrets.ulf2019 }} > /Unity_v2019.x.ulf  
     - run: /opt/Unity/Editor/Unity -manualLicenseFile /Unity_v2019.x.ulf -batchmode -nographics -quit || exit 0
     - run: /opt/Unity/Editor/Unity -batchmode -nographics -silent-crashes -logFile -projectPath . -runEditorTests -editorTestsResultFile path/to/artifact/results.xml || exit 0
 
