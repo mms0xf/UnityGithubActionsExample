@@ -2,6 +2,9 @@ name: UnityTestRunnerExampleSlack
 
 on:
   push:
+  schedule:
+    # evry Sat (UTC)
+    - cron:  '0 0 * * 6'
 
 jobs:
   editorTestJob:
