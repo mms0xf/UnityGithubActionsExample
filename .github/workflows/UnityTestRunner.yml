@@ -28,7 +28,7 @@ jobs:
         #ULF: ${{ secrets.ulf2019 }}
         
     - run: |      
-        echo {$ULF} | base64 -d > /Unity_v2019.x.ulf
+        echo -n {$ULF} | base64 -d > /Unity_v2019.x.ulf
       env:
         ULF: ${{ secrets.ulf_base64 }}
         
