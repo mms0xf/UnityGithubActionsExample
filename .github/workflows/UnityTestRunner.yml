@@ -27,11 +27,15 @@ jobs:
       #env:
         #ULF: ${{ secrets.ulf2019 }}
         
+    #- run: |      
+        #echo -n {$ULF} | base64 -d > /Unity_v2019.x.ulf
+      #env:
+        #ULF: ${{ secrets.ulf_base64 }}
+
     - run: |      
-        echo -n {$ULF} | base64 -d > /Unity_v2019.x.ulf
+        echo {$ULF} > /Unity_v2019.x.ulf
       env:
-        ULF: ${{ secrets.ulf_base64 }}
-        
+        ULF: ${{ secrets.ulf_raw }}        
         
     - run: /opt/Unity/Editor/Unity -manualLicenseFile /Unity_v2019.x.ulf -batchmode -nographics -quit || exit 0
     - run: /opt/Unity/Editor/Unity -batchmode -nographics -silent-crashes -logFile -projectPath . -runEditorTests -editorTestsResultFile path/to/artifact/results.xml || exit 0
