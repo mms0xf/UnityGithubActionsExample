@@ -47,21 +47,21 @@ jobs:
         name: test_results
         path: path/to/artifact
         
-  reportResultJob:
-    runs-on: ubuntu-latest
-    needs: editorTestJob
-    steps:
-    - uses: actions/download-artifact@master
-      with:
-        name: test_results
-        path: artifact
+  #reportResultJob:
+    #runs-on: ubuntu-latest
+    #needs: editorTestJob
+    #steps:
+    #- uses: actions/download-artifact@master
+      #with:
+        #name: test_results
+        #path: artifact
     
     
-    - name: report result to slack
-      run: |
-        echo ls
-        ls       
-        cat artifact/results.xml
+    #- name: report result to slack
+      #run: |
+        #echo ls
+        #ls       
+        #cat artifact/results.xml
 
         # exit $INPUT_RESULT
 
