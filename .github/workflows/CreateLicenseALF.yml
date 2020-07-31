@@ -1,7 +1,7 @@
 name: Create ALF File
 
 on: 
-  #push:
+  push:
 
 jobs:
   build:
